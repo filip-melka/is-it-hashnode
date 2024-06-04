@@ -1,3 +1,16 @@
+console.log('Content script loaded')
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	if (request.action === 'getAuthor') {
+		sendResponse({
+			author: getHashnodeAuthor(),
+			slug: window.location.href.substring(
+				window.location.href.lastIndexOf('/') + 1
+			),
+		})
+	}
+})
+
 function getHashnodeAuthor() {
 	const links = document.getElementsByTagName('link')
 	for (let link of links) {
