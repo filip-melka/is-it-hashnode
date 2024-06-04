@@ -12,7 +12,13 @@ function getHashnodeAuthor() {
 const author = getHashnodeAuthor()
 
 if (author) {
-	alert('This is a Hashnode blog post. The author is ' + author)
+	chrome.runtime.sendMessage({
+		action: 'changeIcon',
+		iconPath: 'images/icon-16.png',
+	})
 } else {
-	alert('This is not a Hashnode blog post')
+	chrome.runtime.sendMessage({
+		action: 'changeIcon',
+		iconPath: 'images/icon-16-disabled.png',
+	})
 }

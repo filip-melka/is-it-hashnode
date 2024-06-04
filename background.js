@@ -1,6 +1,5 @@
-chrome.action.onClicked.addListener((tab) => {
-	chrome.scripting.executeScript({
-		target: { tabId: tab.id },
-		files: ['content.js'],
-	})
+chrome.runtime.onMessage.addListener((req) => {
+	if (req.action === 'changeIcon') {
+		chrome.action.setIcon({ path: req.iconPath })
+	}
 })
