@@ -1,4 +1,6 @@
-console.log('Content script loaded')
+window.addEventListener('focus', function () {
+	checkPage()
+})
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.action === 'getAuthor') {
@@ -22,16 +24,20 @@ function getHashnodeAuthor() {
 	return null
 }
 
-const author = getHashnodeAuthor()
+function checkPage() {
+	const author = getHashnodeAuthor()
 
-if (author) {
-	chrome.runtime.sendMessage({
-		action: 'changeIcon',
-		iconPath: 'images/icon-16.png',
-	})
-} else {
-	chrome.runtime.sendMessage({
-		action: 'changeIcon',
-		iconPath: 'images/icon-16-disabled.png',
-	})
+	if (author) {
+		chrome.runtime.sendMessage({
+			action: 'changeIcon',
+			iconPath: 'images/icon-16.png',
+		})
+	} else {
+		chrome.runtime.sendMessage({
+			action: 'changeIcon',
+			iconPath: 'images/icon-16-disabled.png',
+		})
+	}
 }
+
+checkPage()
